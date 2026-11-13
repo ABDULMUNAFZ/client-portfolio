@@ -27,7 +27,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 0 #005c4766; animation: pulse 2s infinite; }
 @keyframes pulse { 70% { box-shadow: 0 0 0 9px #005c4700; } }
 .w { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
-.c { display: inline-block; will-change: transform; }
+.c { display: inline-block; }
 .wd { display: inline-block; }
 .chip { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 40px; background: var(--panel); font: 600 12px var(--sans); }
 .chip.ok { background: var(--mint); }

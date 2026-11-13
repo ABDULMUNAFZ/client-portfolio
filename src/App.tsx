@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import { appReady, gsap, markReady, reduced, ScrollTrigger, scrollToTarget } from './lib/motion';
@@ -8,12 +8,12 @@ import { CloudDefs } from './components/Clouds';
 import Topbar from './components/Topbar';
 import Dock from './components/Dock';
 import Home from './pages/Home';
-import Project from './pages/Project';
+const Project = lazy(() => import('./pages/Project'));
 
 function useSmoothScroll() {
   useEffect(() => {
     if (reduced()) return;
-    const lenis = new Lenis({ lerp: 0.09 });
+    const lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1, touchMultiplier: 1.4 });
     window.__lenis = lenis;
     lenis.stop();
     appReady.then(() => lenis.start());
@@ -47,11 +47,13 @@ export default function App() {
       <Cursor />
       <Topbar />
       <main id="top">
+        <Suspense fallback={<div style={{ minHeight: '100vh' }} />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/work/:id" element={<Project />} />
           <Route path="*" element={<Home />} />
         </Routes>
+        </Suspense>
       </main>
       <Footer />
       <Dock />

@@ -8,7 +8,7 @@ export function Phone({ src, alt, fit = 'cover', className = '', style, onClick 
     <div className={`phone ${className}`} style={style} onClick={onClick} data-cursor={onClick ? 'Zoom' : undefined}>
       <i className="btn-side l1" /><i className="btn-side l2" /><i className="btn-side r1" />
       <div className={`phone-screen fit-${fit}`}>
-        <img src={src} alt={alt} loading="lazy" draggable={false} />
+        <img src={src} alt={alt} loading="lazy" decoding="async" draggable={false} />
         <span className="island" />
         <span className="home-bar" />
       </div>
@@ -24,7 +24,7 @@ export function Laptop({ src, alt, url, onClick }: { src: string; alt: string; u
         <span className="cam" />
         <div className="laptop-screen">
           <div className="browser-bar"><b /><b /><b /><span>{url}</span></div>
-          <div className="viewport"><img className="shot" src={src} alt={alt} loading="lazy" draggable={false} /></div>
+          <div className="viewport"><img className="shot" src={src} alt={alt} loading="lazy" decoding="async" draggable={false} /></div>
         </div>
       </div>
       <div className="laptop-base"><span /></div>

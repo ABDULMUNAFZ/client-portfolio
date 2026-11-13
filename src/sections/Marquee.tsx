@@ -21,7 +21,8 @@ export default function Marquee() {
         r.el.style.transform = `translate3d(${r.x}px,0,0) skewX(${(-r.base * dir * vel * 0.5).toFixed(2)}deg)`;
       });
     };
-    gsap.ticker.add(tick);
+    // Only run while the marquee is on screen.
+    ScrollTrigger.create({ trigger: root.current, start: "top bottom", end: "bottom top", onToggle: (s) => (s.isActive ? gsap.ticker.add(tick) : gsap.ticker.remove(tick)) });
     return () => gsap.ticker.remove(tick);
   }, { scope: root });
 
