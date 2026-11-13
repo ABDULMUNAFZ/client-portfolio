@@ -5,6 +5,10 @@ import { EMAIL, LINKEDIN, MAIL, projects } from '../data/projects';
 import { gsap, reduced, scrollToTarget, Split, useGSAP } from '../lib/motion';
 import { useClock } from './Dock';
 
+// Stepped skyline that the dark footer rises out of; some steps carry a pastel block.
+const EDGE = [1, 1, 2, 2, 3, 3, 3, 2, 2, 1, 1, 0, 0, 1, 1, 2, 2, 2, 3, 3, 2, 1, 1, 0, 0, 0, 1, 2, 2, 3];
+const CAPS: Record<number, string> = { 4: "var(--lime)", 9: "var(--lilac)", 15: "var(--sky)", 19: "var(--butter)", 26: "var(--mint)", 29: "var(--blush)" };
+
 // Real skills, scattered around the headline like desktop icons.
 const STICKERS: [LucideIcon, string, string][] = [
   [Search, 'Research', 'var(--sky)'], [Workflow, 'User flows', 'var(--lilac)'], [Layers, 'Design systems', 'var(--butter)'],
@@ -29,6 +33,8 @@ export default function Footer() {
 
   useGSAP(() => {
     if (reduced()) return;
+    gsap.from(".ft-edge i", { scaleY: 0, duration: 0.7, ease: "back.out(1.6)", stagger: { each: 0.025, from: "random" }, scrollTrigger: { trigger: ".ft-edge", start: "top 95%" } });
+    gsap.from(".ft-edge b", { y: -60, opacity: 0, duration: 0.9, ease: "bounce.out", stagger: 0.08, delay: 0.3, scrollTrigger: { trigger: ".ft-edge", start: "top 95%" } });
     gsap.from('.ft-head .c', { yPercent: 115, rotate: 6, duration: 1.1, ease: 'expo.out', stagger: 0.018, scrollTrigger: { trigger: '.ft-head', start: 'top 85%' } });
     gsap.from(".sticker", { scale: 0, rotate: () => gsap.utils.random(-60, 60), duration: 0.9, ease: "back.out(2)", stagger: 0.06, scrollTrigger: { trigger: ".ft-stickers", start: "top 92%" } });
     gsap.from('.compose', { y: 120, rotate: -4, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.ft-main', start: 'top 85%' } });
@@ -38,6 +44,9 @@ export default function Footer() {
 
   return (
     <footer className="site-footer" id="contact" ref={root}>
+      <div className="ft-edge" aria-hidden>
+        {EDGE.map((h, i) => <i key={i} style={{ height: `${28 + h * 26}px` }}>{CAPS[i] && <b style={{ background: CAPS[i] }} />}</i>)}
+      </div>
       <div className="ft-inner">
         <div className="ft-main">
           <div className="ft-left">
